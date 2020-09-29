@@ -19,5 +19,5 @@ $ docker run --rm -it \
     -e RANCHER_PROJECT_ID="c-qyxkj:p-hn2z5" \
     -e RANCHER_URL="https://rancher.domain.tld" \
     -e RANCHER_WORKLOAD="workload" \
-    rancher-redeploy-workload:latest
+    th0th/rancher-redeploy-workload:latest
 ```
