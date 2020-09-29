@@ -1,0 +1,9 @@
+name: Rancher redeploy workload
+description: An action for redeploying a Rancher workload
+author: Gokhan Sari
+branding:
+  icon: refresh-cw
+  color: blue
+runs:
+  using: docker
+  image: Dockerfile
