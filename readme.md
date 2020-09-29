@@ -9,8 +9,10 @@
       RANCHER_BEARER_TOKEN: ${{ secrets.RANCHER_BEARER_TOKEN }}
       RANCHER_NAMESPACE: 'namespace'
       RANCHER_PROJECT_ID: 'c-qyxkj:p-hn2z5'
-      RANCHER_URL: 'hhttps://rancher.domain.tld'
+      RANCHER_URL: 'https://rancher.domain.tld'
       RANCHER_WORKLOAD: 'workload'
+
+## Running as a docker container
 
 ```shell script
 $ docker run --rm -it \
