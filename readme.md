@@ -4,13 +4,14 @@
 
 ```yaml
   - name: Update rancher deployment
-    uses: th0th/rancher-redeploy-workload@v0.1
+    uses: th0th/rancher-redeploy-workload@v0.4
     env:
       RANCHER_BEARER_TOKEN: ${{ secrets.RANCHER_BEARER_TOKEN }}
       RANCHER_NAMESPACE: 'namespace'
       RANCHER_PROJECT_ID: 'c-qyxkj:p-hn2z5'
       RANCHER_URL: 'https://rancher.domain.tld'
       RANCHER_WORKLOAD: 'workload'
+```
 
 ## Running as a docker container
 
