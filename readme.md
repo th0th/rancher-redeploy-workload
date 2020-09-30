@@ -1,6 +1,8 @@
 `rancher-redeploy-workload` is a docker image that redeploys a kubernetes workload using Rancher's API.
 
-## Running as a Github action
+## Running 
+
+### Running as a Github action
 
 ```yaml
   - name: Update rancher deployment
@@ -13,7 +15,7 @@
       RANCHER_WORKLOAD: 'workload'
 ```
 
-## Running as a docker container
+### Running as a docker container
 
 ```shell script
 $ docker run --rm -it \
@@ -24,6 +26,10 @@ $ docker run --rm -it \
     -e RANCHER_WORKLOAD="workload" \
     th0th/rancher-redeploy-workload:v0.5
 ```
+
+## Shameless plug
+
+I am an indie hacker and I am running an uptime monitoring  and analytics platform called [WebGazer](https://www.webgazer.io). You might want to check it out if you are running an online business and want to notice the incidents before your customers.
 
 ## License
 
