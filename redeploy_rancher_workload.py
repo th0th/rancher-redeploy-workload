@@ -51,22 +51,28 @@ headers = {
     ),
 }
 
-workload = requests.get(
+response_get = requests.get(
     headers={
         **headers
     },
     url=url,
-).json()
+)
+
+response_get.raise_for_status()
+
+workload = response_get.json()
 
 workload['annotations']['cattle.io/timestamp'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
 
-requests.put(
+response_put = requests.put(
     headers={
         **headers,
     },
     json=workload,
     url=url,
 )
+
+response_put.raise_for_status()
 
 logging.info("Workload {rancher_workload} is successfully redeployed.".format(
     rancher_workload=rancher_workload,
