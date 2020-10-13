@@ -6,17 +6,15 @@ from typing import List
 
 import requests
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-)
+logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s', level=logging.INFO)
 
 required_environment_variables: List[str] = [
     'RANCHER_BEARER_TOKEN',
+    'RANCHER_CLUSTER_ID',
     'RANCHER_NAMESPACE',
     'RANCHER_PROJECT_ID',
     'RANCHER_URL',
-    'RANCHER_WORKLOAD',
+    'RANCHER_WORKLOADS',
 ]
 
 missing_environment_variables: List[str] = []
@@ -33,17 +31,25 @@ if len(missing_environment_variables) > 0:
     sys.exit(1)
 
 rancher_bearer_token = os.environ['RANCHER_BEARER_TOKEN']
+rancher_cluster_id = os.environ['RANCHER_CLUSTER_ID']
 rancher_namespace = os.environ['RANCHER_NAMESPACE']
 rancher_project_id = os.environ['RANCHER_PROJECT_ID']
 rancher_url = os.environ['RANCHER_URL']
-rancher_workload = os.environ['RANCHER_WORKLOAD']
+rancher_workloads = os.environ['RANCHER_WORKLOADS']
 
-url = '{rancher_url}/v3/project/{rancher_project_id}/workloads/deployment:{rancher_namespace}:{rancher_workload}'.format(
-    rancher_namespace=rancher_namespace,
-    rancher_project_id=rancher_project_id,
-    rancher_url=rancher_url,
-    rancher_workload=rancher_workload,
-)
+
+def generate_workload_url(r_workload: str) -> str:
+    return (
+        '{rancher_url}/v3/project/{rancher_cluster_id}:{rancher_project_id}'
+        '/workloads/deployment:{rancher_namespace}:{rancher_workload}'
+    ).format(
+        rancher_cluster_id=rancher_cluster_id,
+        rancher_namespace=rancher_namespace,
+        rancher_project_id=rancher_project_id,
+        rancher_url=rancher_url,
+        rancher_workload=r_workload,
+    )
+
 
 headers = {
     'Authorization': 'Bearer {rancher_bearer_token}'.format(
@@ -51,29 +57,31 @@ headers = {
     ),
 }
 
-response_get = requests.get(
-    headers={
-        **headers
-    },
-    url=url,
-)
+for rancher_workload in rancher_workloads.split(','):
+    url = generate_workload_url(rancher_workload)
 
-response_get.raise_for_status()
+    response_get = requests.get(
+        headers={
+            **headers
+        },
+        url=url,
+    )
 
-workload = response_get.json()
+    response_get.raise_for_status()
+    workload = response_get.json()
 
-workload['annotations']['cattle.io/timestamp'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+    workload['annotations']['cattle.io/timestamp'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
 
-response_put = requests.put(
-    headers={
-        **headers,
-    },
-    json=workload,
-    url=url,
-)
+    response_put = requests.put(
+        headers={
+            **headers,
+        },
+        json=workload,
+        url=url,
+    )
 
-response_put.raise_for_status()
+    response_put.raise_for_status()
 
-logging.info("Workload {rancher_workload} is successfully redeployed.".format(
-    rancher_workload=rancher_workload,
-))
+    logging.info("Workload {rancher_workload} is successfully redeployed.".format(
+        rancher_workload=rancher_workload,
+    ))
