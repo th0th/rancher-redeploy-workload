@@ -28,7 +28,7 @@ $ docker run --rm -it \
     -e RANCHER_PROJECT_ID="p-hm2z1" \
     -e RANCHER_URL="https://rancher.aperturescience.tld" \
     -e RANCHER_WORKLOADS="wheatley1,wheatley2" \
-    docker.pkg.github.com/th0th/rancher-redeploy-workload/rancher-redeploy-workload:0.81
+    th0th/rancher-redeploy-workload:0.81
 ```
 
 ## Shameless plug
