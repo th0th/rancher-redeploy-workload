@@ -1,4 +1,4 @@
-`rancher-redeploy-workload` is a docker image that redeploys a kubernetes workloads using Rancher's API.
+`rancher-redeploy-workload` is a docker image that redeploys kubernetes workloads using Rancher's API.
 
 ## Running 
 
