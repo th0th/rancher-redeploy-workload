@@ -1,9 +1,9 @@
 name: Rancher redeploy workload
-description: An action for redeploying a Rancher workload
+description: An action for redeploying Rancher workload(s)
 author: Gokhan Sari
 branding:
   icon: refresh-cw
   color: blue
 runs:
   using: docker
-  image: Dockerfile
+  image: docker.pkg.github.com/th0th/rancher-redeploy-workload/rancher-redeploy-workload:0.7
