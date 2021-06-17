@@ -1,15 +1,25 @@
-FROM python:3.9
+FROM golang:1.16
 
-WORKDIR /rancher-redeploy-workload
+WORKDIR /usr/src/rancher-redeploy-workload
 
-COPY requirements.txt requirements.txt
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN pip install -r requirements.txt
+COPY config.go .
+COPY main.go .
+COPY validator.go .
 
-COPY redeploy_rancher_workload.py redeploy_rancher_workload.py
+RUN mkdir bin
 
-# docker-entrypoint.sh
+RUN CGO_ENABLED=0 go build -a -o bin/rancher-redeploy-workload .
+
+FROM alpine:latest
+
+RUN apk update && apk add bash
+
+COPY --from=0 /usr/src/rancher-redeploy-workload/bin/rancher-redeploy-workload /usr/local/bin/rancher-redeploy-workload
+
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
