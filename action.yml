@@ -1,9 +1,35 @@
-name: Rancher redeploy workload
-description: An action for redeploying Rancher workload(s)
-author: Gokhan Sari
+author: "Gokhan Sari"
 branding:
   icon: package
   color: blue
+description: "An action for redeploying Rancher workload(s)"
+inputs:
+  debug:
+    description: "Debug flag"
+  disable_output:
+    description: "Disables outputting to stdout (useful if the logs are public, but you don't want to expose anything)"
+  rancher_bearer_token:
+    description: "Bearer token used for authenticating on Rancher"
+  rancher_cluster_id:
+    description: "Cluster's id on Rancher"
+  rancher_namespace:
+    description: "Kubernetes namespace of the deployment to be updated"
+  rancher_project_id:
+    description: "Project's id on Rancher"
+  rancher_url:
+    description: "Base URL of the Rancher"
+  rancher_workloads:
+    description: "Comma separated list of workloads to be updated (e.g. deployment1,deployment2)"
+name: Rancher redeploy workload
 runs:
+  env:
+    DEBUG: ${{ inputs.debug }}
+    DISABLE_OUTPUT: ${{ inputs.disable_output }}
+    RANCHER_BEARER_TOKEN: ${{ inputs.rancher_bearer_token }}
+    RANCHER_CLUSTER_ID: ${{ inputs.rancher_cluster_id }}
+    RANCHER_NAMESPACE: ${{ inputs.rancher_namespace }}
+    RANCHER_PROJECT_ID: ${{ inputs.rancher_project_id }}
+    RANCHER_URL: ${{ inputs.rancher_url }}
+    RANCHER_WORKLOADS: ${{ inputs.rancher_workloads }}
+  image: docker://th0th/rancher-redeploy-workload:0.9.2
   using: docker
-  image: docker://th0th/rancher-redeploy-workload:0.9.1

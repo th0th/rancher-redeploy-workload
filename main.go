@@ -112,14 +112,10 @@ func main() {
 	}
 }
 
-func p(a ...any) {
-	if !config.DisableOutput {
-		fmt.Print(a...)
-	}
-}
-
 func pf(format string, a ...any) {
-	fmt.Printf(format, a...)
+	if !config.DisableOutput {
+		fmt.Printf(format, a...)
+	}
 }
 
 func pln(a ...any) {
