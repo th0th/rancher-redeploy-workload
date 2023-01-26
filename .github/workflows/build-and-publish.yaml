@@ -33,12 +33,11 @@ jobs:
             ${{ github.repository }}
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{version}}
 
       - name: Build and push docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./backend
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
