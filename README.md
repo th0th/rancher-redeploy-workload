@@ -4,11 +4,11 @@
 
 ![Hint](hint.png)
 
-### Running as a Github action
+### Running as a GitHub action
 
 ```yaml
   - name: Update rancher deployment
-    uses: th0th/rancher-redeploy-workload@v0.9
+    uses: th0th/rancher-redeploy-workload@v0.9.1
     env:
       RANCHER_BEARER_TOKEN: ${{ secrets.RANCHER_BEARER_TOKEN }}
       RANCHER_CLUSTER_ID: 'c-qxyky'
@@ -28,7 +28,7 @@ $ docker run --rm -it \
     -e RANCHER_PROJECT_ID="p-hm2z1" \
     -e RANCHER_URL="https://rancher.aperturescience.tld" \
     -e RANCHER_WORKLOADS="wheatley1,wheatley2" \
-    th0th/rancher-redeploy-workload:0.9
+    th0th/rancher-redeploy-workload:0.9.1
 ```
 ## Shameless plug
 
