@@ -12,6 +12,7 @@
     with:
       debug: 'false'
       disable_output: 'false'
+      tls_skip_verification: 'false'
       rancher_bearer_token: ${{ secrets.RANCHER_BEARER_TOKEN }}
       rancher_cluster_id: 'c-qxyky'
       rancher_namespace: 'namespace'
@@ -22,16 +23,17 @@
 
 #### Inputs
 
-| Variable             | Required | Default value | Description                                                                                          |
-|----------------------|:--------:|---------------|------------------------------------------------------------------------------------------------------|
-| debug                |          | 'false'       | Debug flag (useful when something fails)                                                             |
-| disable_output       |          | 'false'       | Disables outputting to stdout (useful if the logs are public, but you don't want to expose anything) |
-| rancher_bearer_token |    ✔     |               | Bearer token used for authenticating on Rancher                                                      |
-| rancher_cluster_id   |    ✔     |               | Cluster's id on Rancher                                                                              |
-| rancher_namespace    |    ✔     |               | Kubernetes namespace of the deployment to be updated                                                 |
-| rancher_project_id   |    ✔     |               | Project's id on Rancher                                                                              |
-| rancher_url          |    ✔     |               | Base URL of the Rancher                                                                              |
-| rancher_workloads    |    ✔     |               | Comma separated list of workloads to be updated (e.g. deployment1,deployment2)                       |
+| Variable              | Required | Default value | Description                                                                                          |
+|-----------------------|:--------:|---------------|------------------------------------------------------------------------------------------------------|
+| debug                 |          | 'false'       | Debug flag (useful when something fails)                                                             |
+| disable_output        |          | 'false'       | Disables outputting to stdout (useful if the logs are public, but you don't want to expose anything) |
+| tls_skip_verification |          | 'false'       | Skipping host TLS verification                                                                       |
+| rancher_bearer_token  |    ✔     |               | Bearer token used for authenticating on Rancher                                                      |
+| rancher_cluster_id    |    ✔     |               | Cluster's id on Rancher                                                                              |
+| rancher_namespace     |    ✔     |               | Kubernetes namespace of the deployment to be updated                                                 |
+| rancher_project_id    |    ✔     |               | Project's id on Rancher                                                                              |
+| rancher_url           |    ✔     |               | Base URL of the Rancher                                                                              |
+| rancher_workloads     |    ✔     |               | Comma separated list of workloads to be updated (e.g. deployment1,deployment2)                       |
 
 ### Running as a docker container
 
@@ -39,6 +41,7 @@
 $ docker run --rm -it \
     -e DEBUG="false" \
     -e DISABLE_OUTPUT="false" \
+    -e TLS_SKIP_VERIFICATION="false" \
     -e RANCHER_BEARER_TOKEN="token-xgskl:n45p7tmd47t9lfzh7xl8rw6rvtrfzzxrtdr6qvjg27r4sjcxvzss7d" \
     -e RANCHER_CLUSTER_ID="c-qxyky" \
     -e RANCHER_NAMESPACE="namespace" \

@@ -8,6 +8,8 @@ inputs:
     description: "Debug flag"
   disable_output:
     description: "Disables outputting to stdout (useful if the logs are public, but you don't want to expose anything)"
+  tls_skip_verification:
+    description: "Skipping host TLS verification"
   rancher_bearer_token:
     description: "Bearer token used for authenticating on Rancher"
   rancher_cluster_id:
