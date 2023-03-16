@@ -8,7 +8,7 @@
 
 ```yaml
   - name: Update rancher deployment
-    uses: th0th/rancher-redeploy-workload@v0.9.2
+    uses: th0th/rancher-redeploy-workload@v0.9.3
     with:
       debug: 'false'
       disable_output: 'false'
@@ -27,13 +27,13 @@
 |-----------------------|:--------:|---------------|------------------------------------------------------------------------------------------------------|
 | debug                 |          | 'false'       | Debug flag (useful when something fails)                                                             |
 | disable_output        |          | 'false'       | Disables outputting to stdout (useful if the logs are public, but you don't want to expose anything) |
-| rancher_bearer_token  |    ✔     |               | Bearer token used for authenticating on Rancher                                                      |
-| rancher_cluster_id    |    ✔     |               | Cluster's id on Rancher                                                                              |
-| rancher_namespace     |    ✔     |               | Kubernetes namespace of the deployment to be updated                                                 |
-| rancher_project_id    |    ✔     |               | Project's id on Rancher                                                                              |
-| rancher_url           |    ✔     |               | Base URL of the Rancher                                                                              |
-| rancher_workloads     |    ✔     |               | Comma separated list of workloads to be updated (e.g. deployment1,deployment2)                       |
-| tls_skip_verification |          | 'false'       | Skipping host TLS verification                                                                       |
+| rancher_bearer_token  |    ✓     |               | Bearer token used for authenticating on Rancher                                                      |
+| rancher_cluster_id    |    ✓     |               | Cluster's id on Rancher                                                                              |
+| rancher_namespace     |    ✓     |               | Kubernetes namespace of the deployment to be updated                                                 |
+| rancher_project_id    |    ✓     |               | Project's id on Rancher                                                                              |
+| rancher_url           |    ✓     |               | Base URL of the Rancher                                                                              |
+| rancher_workloads     |    ✓     |               | Comma separated list of workloads to be updated (e.g. deployment1,deployment2)                       |
+| tls_skip_verification |          | 'false'       | Skips TLS verification for the outgoing HTTP request to Rancher                                      |
 
 ### Running as a docker container
 
@@ -48,7 +48,7 @@ $ docker run --rm -it \
     -e RANCHER_URL="https://rancher.aperturescience.tld" \
     -e RANCHER_WORKLOADS="wheatley1,wheatley2" \
     -e TLS_SKIP_VERIFICATION="false" \
-    th0th/rancher-redeploy-workload:0.9.2
+    th0th/rancher-redeploy-workload:0.9.3
 ```
 
 ## Shameless plug
