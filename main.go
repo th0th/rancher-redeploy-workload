@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"errors"
 	"fmt"
 	v "github.com/RussellLuo/validating/v3"
@@ -12,14 +13,15 @@ import (
 )
 
 type Config struct {
-	Debug              bool   `env:"DEBUG"`
-	DisableOutput      bool   `env:"DISABLE_OUTPUT"`
-	RancherBearerToken string `env:"RANCHER_BEARER_TOKEN"`
-	RancherClusterId   string `env:"RANCHER_CLUSTER_ID"`
-	RancherNamespace   string `env:"RANCHER_NAMESPACE"`
-	RancherProjectId   string `env:"RANCHER_PROJECT_ID"`
-	RancherUrl         string `env:"RANCHER_URL"`
-	RancherWorkloads   string `env:"RANCHER_WORKLOADS"`
+	Debug               bool   `env:"DEBUG"`
+	DisableOutput       bool   `env:"DISABLE_OUTPUT"`
+	RancherBearerToken  string `env:"RANCHER_BEARER_TOKEN"`
+	RancherClusterId    string `env:"RANCHER_CLUSTER_ID"`
+	RancherNamespace    string `env:"RANCHER_NAMESPACE"`
+	RancherProjectId    string `env:"RANCHER_PROJECT_ID"`
+	RancherUrl          string `env:"RANCHER_URL"`
+	RancherWorkloads    string `env:"RANCHER_WORKLOADS"`
+	TlsSkipVerification bool   `env:"TLS_SKIP_VERIFICATION"`
 }
 
 var config = &Config{}
@@ -69,6 +71,8 @@ func main() {
 	pln("Staring to redeploy...")
 
 	hasErrors := false
+
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: config.TlsSkipVerification}
 
 	for _, workload := range workloads {
 		req, err2 := http.NewRequest(http.MethodPost, generateWorkloadRedeployUrl(workload), strings.NewReader("{}"))

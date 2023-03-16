@@ -20,6 +20,8 @@ inputs:
     description: "Base URL of the Rancher"
   rancher_workloads:
     description: "Comma separated list of workloads to be updated (e.g. deployment1,deployment2)"
+  tls_skip_verification:
+    description: "Skips TLS verification for the outgoing HTTP request to Rancher"
 name: Rancher redeploy workload
 runs:
   env:
@@ -31,5 +33,6 @@ runs:
     RANCHER_PROJECT_ID: ${{ inputs.rancher_project_id }}
     RANCHER_URL: ${{ inputs.rancher_url }}
     RANCHER_WORKLOADS: ${{ inputs.rancher_workloads }}
+    TLS_SKIP_VERIFICATION: ${{ inputs.tls_skip_verification }}
   image: docker://th0th/rancher-redeploy-workload:0.9.2
   using: docker
