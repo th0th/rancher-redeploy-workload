@@ -15,13 +15,13 @@ import (
 type Config struct {
 	Debug               bool   `env:"DEBUG"`
 	DisableOutput       bool   `env:"DISABLE_OUTPUT"`
-	TlsSkipVerification bool   `env:"TLS_SKIP_VERIFICATION"`
 	RancherBearerToken  string `env:"RANCHER_BEARER_TOKEN"`
 	RancherClusterId    string `env:"RANCHER_CLUSTER_ID"`
 	RancherNamespace    string `env:"RANCHER_NAMESPACE"`
 	RancherProjectId    string `env:"RANCHER_PROJECT_ID"`
 	RancherUrl          string `env:"RANCHER_URL"`
 	RancherWorkloads    string `env:"RANCHER_WORKLOADS"`
+	TlsSkipVerification bool   `env:"TLS_SKIP_VERIFICATION"`
 }
 
 var config = &Config{}
